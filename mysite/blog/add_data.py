@@ -1,8 +1,8 @@
-from . import  models
+from . import models
 from django.contrib.auth.models import User
 
 
-def add_data1(): # blog_articles 插入数据
+def add_data1():  # blog_articles 插入数据
     u = User.objects.filter(id=1).first()
     a = models.BlogArticles(author=u, title='hello', body='lalala')
     a.save()
