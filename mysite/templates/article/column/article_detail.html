@@ -1,5 +1,5 @@
 {% extends "article/base.html" %}
-{% load staticfiles %}
+{% load static %}
 {% block title %}articles list{% endblock %}
 {% block content %} 
 <div>
@@ -10,8 +10,7 @@
     
     <link rel="stylesheet" href="{% static 'editor/css/editormd.preview.css' %}" /> 
     <div id='editormd-view'>
-        <textarea id="append-test" style="display:none;"> 
-{{ article.body }}
+        <textarea id="append-test" style="display:none;">{{article.body}}
         </textarea> 
     </div>
 </div>

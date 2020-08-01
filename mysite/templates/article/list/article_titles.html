@@ -13,7 +13,9 @@
             <h4 class="list-group-item-heading">{{article.title}}</h4> 
         </a>
         <p class="list-group-item-text">作者:<a href="{% url 'article:author_articles' article.author.username %}">{{article.author.username}}</a></p>
-        <p class="list-group-item-text">概要:{{article.body|slice:'70'| linebreaks}}</p> 
+        <p class="list-group-item-text">概要:{{article.body|slice:'70'| linebreaks}}</p>
+        <!--“slice:'70'”的含义是将前面的变量所导入的内容“切下”前70个字符。-->
+        <!--linebreaks的作用是允许原文中的换行HTML标记符继续产生效用。-->
     </div>
     {% endfor %}
 {% include "paginator.html" %} 
