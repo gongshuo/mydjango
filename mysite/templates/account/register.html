@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% load staticfiles %}
 
 {% block title %}register user{% endblock %}
 
@@ -31,18 +31,17 @@ Password</label>
             <label for="{{ form.password.id_for_label }}" class="col-md-5 control-label"> Confirm Password</label>
             <div class="col-md-6 text-left">{{ form.password2 }}</div> 
         </div>
-        {% if profile.birth %}
+
         <div class="form-group">
             <label for="{{ profile.birth.id_for_label }}" class="col-md-5 control-label"> Birth Date</label>
             <div class="col-md-6 text-left">{{ profile.birth }}</div> 
         </div>
-        {% endif %}
-        {% if profile.phone %}
+        
         <div class="form-group">
             <label for="{{ profile.phone.id_for_label }}" class="col-md-5 control-label">Phone</label>    
             <div class="col-md-6 text-left">{{ profile.phone }}</div>
         </div>
-        {% endif %}
+
         <input type="submit" class="btn btn-primary btn-lg" value="REGISTER"> 
     </form>
 </div>

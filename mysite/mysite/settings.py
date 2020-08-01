@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'account',
+    'article'
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_HOST_USER = "470690988@qq.com"
+EMAIL_HOST_PASSWORD = "zrnhbhdgjvydcaae"  # 通过qq邮箱设置获取的密码
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "470690988@qq.com"
+
+LOGIN_REDIRECT_URL = '/home/'
+
+LOGIN_URL = '/account/login/'
+
+# 在控制台打印重置密码url
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# redis-server.exe redis.windows.conf  启动redis
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0

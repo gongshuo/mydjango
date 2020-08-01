@@ -1,19 +1,24 @@
 {% extends "base.html" %}
-{% load static %}
+
+{% load staticfiles %}
+
 {% block title %}Login{% endblock %}
+
 {% block content %}
 <div class="row text-center vertical-middle-sm">
     <h1>Login--Built in Method of Django</h1>
-    <!--如果填写出错-->
+
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
+
     <p>Input your username and password</p>
+
     {% if next %}
     <form class="form-horizontal" action="{% url 'account:user_login' %}?next={{next}}" method="post" >
     {% else %}
     <form class="form-horizontal" action="{% url 'account:user_login' %}" method="post">
-    {% endif %}
+    {% endif %}    
         {% csrf_token %}
         <div class="form-group">
             <label for="{{ form.username.id_for_label }}" class="col-md-5 control-label" style="color:red">
@@ -25,7 +30,6 @@
             <div class="col-md-6 text-left">{{ form.password }}
             </div>
         </div>
-
         <input type="submit" class="btn btn-primary btn-lg" value="Login"> 
     </form>
 

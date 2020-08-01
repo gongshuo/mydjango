@@ -10,6 +10,7 @@ from django.views.decorators.http import require_POST
 from django.db.models import Count
 
 import redis  # https://github.com/tporadowski/redis/releases
+# r = redis.StrictRedis(host='localhost', port=6379, db=0)
 from django.conf import settings
 r = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
 
@@ -40,6 +41,7 @@ def article_titles(request, username=None):
     if username:
         return render(request, "article/list/author_articles.html", {"articles":articles, "page":current_page, "userinfo":userinfo, "user":user})
     return render(request, "article/list/article_titles.html", {"articles":articles, "page": current_page})
+
 
 def article_detail(request, id, slug):
     article = get_object_or_404(ArticlePost, id=id, slug=slug)
