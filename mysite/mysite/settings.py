@@ -137,8 +137,10 @@ LOGIN_URL = '/account/login/'
 # 在控制台打印重置密码url
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
+APPEND_SLASH=False
+# 设置APPEND_SLASH=False就可以避免Django自动为url添加斜线
 # redis-server.exe redis.windows.conf  启动redis
+
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0

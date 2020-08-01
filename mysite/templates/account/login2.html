@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block title %}Login{% endblock %}
 
@@ -15,6 +15,7 @@
     <p>Input your username and password</p>
 
     {% if next %}
+    <!--当用户登录之后，再自动跳转到next所指示的目标-->
     <form class="form-horizontal" action="{% url 'account:user_login' %}?next={{next}}" method="post" >
     {% else %}
     <form class="form-horizontal" action="{% url 'account:user_login' %}" method="post">

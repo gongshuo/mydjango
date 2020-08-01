@@ -5,6 +5,8 @@ from .forms import LoginForm,RegistrationForm,UserForm,UserInfoForm,UserProfileF
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile,UserInfo
 from django.urls import  reverse
+
+
 # Create your views here.
 
 
@@ -17,6 +19,8 @@ def user_login(request):
             user = authenticate(username=cd['username'], password=cd['password'])
             if user:
                 login(request, user)
+                # 以User实例对象作为参数，实现用户登录。
+                # 用户登录之后，Django会自动调用默认的session应用，将用户ID 保存在session中，完成用户登录操作
                 return HttpResponse("Wellcome You.You have been authenticated successfully")
             else:
                 return HttpResponse("Sorry. Your username or password is not right.")
@@ -83,7 +87,6 @@ def myself_edit(request):
         return render(request, "account/myself_edit.html", {"user_form":user_form, "userprofile_form":userprofile_form, "userinfo_form":userinfo_form})
 
 
-from .models import UserInfo
 @login_required(login_url='/account/login/')
 def my_image(request):
     if request.method == 'POST':

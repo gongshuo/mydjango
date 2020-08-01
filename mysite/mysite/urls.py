@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-from django.views.generic import  TemplateView
+from django.views.generic import TemplateView
+import django
+# from django.http import JsonResponse,HttpResponse
 
 urlpatterns = [
+    path('', admin.site.urls ),
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls', namespace='blog')),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),

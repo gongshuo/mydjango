@@ -18,6 +18,8 @@ class RegistrationForm(forms.ModelForm):
         fields = ("username", "email")
 
     def clean_password2(self):
+        # 检查的动作在我们调用表单实例对象的is_valid()方法时会被执行。
+        # 以“clean_+属性名称”命名方式所创建的方法，都有类似的功能。
         cd = self.cleaned_data
         if cd['password'] != cd['password2']:
             raise forms.ValidationError("passwords do not match.")
