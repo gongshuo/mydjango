@@ -1,10 +1,8 @@
 {% extends "article/base.html" %}
-
 {% load static %}
-
 {% block title %}articles tag{% endblock %}
+{% block content %}
 
-{% block content %} 
 <div>
     <p>添加文章标签</p>
     <form class="form-horizontal" action="." method="post">{% csrf_token %}

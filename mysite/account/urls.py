@@ -9,23 +9,31 @@ urlpatterns = [
     path('my-information/', views.myself, name="my_information"),
     path('edit-my-information/', views.myself_edit, name="edit_my_information"),
     path('my-image/', views.my_image, name="my_image"),
+
+    # *************************************** #
     path('login/',
          auth_views.LoginView.as_view(template_name='account/login2.html'),
-         name='user_login'),  # 重新指定template_name
+         name='user_login'),  # 重新指定template_name,传递了一个form
+
     path('logout/', auth_views.LogoutView.as_view(template_name='account/logout.html'),
          name='user_logout'),
+
     path('password-change/', auth_views.PasswordChangeView.as_view(template_name="account/password_change_form.html",
                                                                    success_url="/account/password-change-done/"),
-         name='password_change'),
+         name='password_change'),  # 传递了form
+
     path('password-change-done/',
          auth_views.PasswordChangeDoneView.as_view(template_name="account/password_change_done.html"),
          name='password_change_done'),
+
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name="account/password_reset_form.html",
                                                              email_template_name="account/password_reset_email.html",
                                                              success_url='/account/password-reset-done/'),
-         name='password_reset'),
+         name='password_reset'),  # 传递了form
+
     path('password-reset-done/', auth_views.PasswordResetDoneView.as_view(template_name="account/password_reset_done.html"),
          name='password_reset_done'),
+
     # 修改密码路径
     path('password-reset-confirm/<uidb64>/<token>/',
          auth_views.PasswordResetConfirmView.as_view(template_name="account/password_reset_confirm.html",
