@@ -29,7 +29,8 @@ urlpatterns = [
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
     path('account/', include('account.urls', namespace='account')),
     path('article/', include('article.urls', namespace='article')),
-    path('image/',include('image.urls',namespace='image'))
+    path('image/',include('image.urls', namespace='image')),
+    path('course/', include('course.urls', namespace='course'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

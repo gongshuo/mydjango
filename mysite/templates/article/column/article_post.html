@@ -53,8 +53,7 @@ function publish_article(){
     var title = $("#id_title").val();
     var column_id = $("#which_column").val(); 
     var body = $("#id_body").val();
-    var article_tags = [];
-    //定义了一个数组，用语句⑤得到所选择的项目（选择的文章标签）
+    var article_tags = []; 
     $.each($("input[name='article_tag']:checked"), function(){article_tags.push($(this).val());});
     $.ajax({
         url: "{% url 'article:article_post' %}",

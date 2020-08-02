@@ -24,7 +24,6 @@
 <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/cropbox-min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/csrf.js' %}"></script>
-<!--在表单代码中增加{% csrf_token %}，才能实现数据的提交。现在使用Ajax方式提交，导入csrf.js-->
 <script type="text/javascript">
     $(window).load(function() { 
         var options =
@@ -32,7 +31,7 @@
             thumbBox: '.thumbBox', 
             spinner: '.spinner', 
             imgSrc: ''
-        };
+        }
         var cropper = $('.imageBox').cropbox(options); 
         var img="";
         $('#upload-file').on('change', function(){
@@ -40,19 +39,20 @@
             reader.onload = function(e) {
                 options.imgSrc = e.target.result;
                 cropper = $('.imageBox').cropbox(options); 
-                //getImg();
-            };
+                // getImg();  // 获取图片
+            }
             reader.readAsDataURL(this.files[0]); 
             //this.files = [];
-            });
+        })
         $('#btnCrop').on('click', function(){
-            //alert("图片上传喽"); 
+            //alert("图片上传喽");
+            getImg();  //img赋值
             $.ajax({
-                url: '{% url "account:my_image" %}',
+                url: '{% url "account:my_image" %}', 
                 type: 'POST',
                 data: {"img": img},
                 success: function(e){
-                    // location.href= "{% url 'account:my_information' %}" },
+                    //location.href= "{% url 'account:my_information' %}" },
                     if(e == "1"){
                         parent.location.reload();
                     } else {
@@ -60,7 +60,7 @@
                     }
                 }
                 });
-        });
+        })
     
         function getImg(){
             img = cropper.getDataURL();
@@ -71,7 +71,7 @@
         }
     
         $(".imageBox").on("mouseup",function(){ getImg();});
-        $('#btnZoomIn').on('click', function(){ cropper.zoomIn();});
+        $('#btnZoomIn').on('click', function(){ cropper.zoomIn();})
         $('#btnZoomOut').on('click', function(){cropper.zoomOut(); })
     }); 
 </script>

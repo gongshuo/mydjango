@@ -11,5 +11,5 @@ def add_data1():  # blog_articles 插入数据
     # r1 = Role.objects.get(role_name=role)  # r1表示UserInfo的多对多数据
     # u1 = UserInfo(user_name=name, user_pwd=password, sex=sex, mobileno=mobile, email=email, depart=d1)
     # u1.save()
-    # u1.role.add(r1)  # 多对多关系
+    # u1.role.add(r1)  # 多对多关系,一对多关系，一对一关系都可
     # u1.save()

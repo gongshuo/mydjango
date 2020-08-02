@@ -8,8 +8,8 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     """补充User表不足的地方"""
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
-    birth = models.DateField(blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)  # 唯一键
+    birth = models.DateField(blank=True, null=True)     # 可以为空,也可以为null
     phone = models.CharField(max_length=20, null=True)
 
     def __str__(self):
@@ -17,6 +17,7 @@ class UserProfile(models.Model):
 
 
 class UserInfo(models.Model):
+    """补充User表不足的地方"""
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     school = models.CharField(max_length=100, blank=True)
     company = models.CharField(max_length=100, blank=True)

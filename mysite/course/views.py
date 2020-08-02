@@ -15,6 +15,10 @@ from braces.views import LoginRequiredMixin
 import json
 
 
+def testview(request):
+    return HttpResponse('<h1>Hello,learn course together</h1>')
+
+
 class CourseListView(ListView):
     model = Course
     context_object_name = "courses"

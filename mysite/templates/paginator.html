@@ -1,19 +1,13 @@
-<!--专门用于分页的模板文件-->
-<div class="pagination">
+<div class="pagination"> 
     <span class="step-links">
         {% if page.has_previous %}
-        <!--has_previous：判断是否有上一页-->
-        <a href="?page={{ page.previous_page_number }}">Previous</a>
-        <!--返回上一页的页码-->
+        <a href="?page={{ page.previous_page_number }}">Previous</a> 
         {% endif %}
         <span class="current">
-            Page {{ page.number }} of {{ page.paginator.num_pages }}
-            <!--返回当前页的页码-->
-            <!--关联 Paginator对象（page.paginator），并得到其总页码数（paginator.num_pages）-->
+            Page {{ page.number }} of {{ page.paginator.num_pages }} 
         </span>
         {% if page.has_next %}
         <a href="?page={{ page.next_page_number }}">Next</a> {% endif %}
-        <!--返回下一页的页码。-->
     </span>
 </div>
     
