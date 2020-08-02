@@ -1,13 +1,13 @@
 from django.shortcuts import render,get_object_or_404
 
-from . import  models
+from . import models
 
 # Create your views here.
 
 
 def blog_title(request):
     blogs = models.BlogArticles.objects.all()
-    return render(request, 'blog/title.html', {'blogs': blogs})
+    return render(request, 'blog/titles.html', {'blogs': blogs})
 
 
 def blog_article(request, article_id):

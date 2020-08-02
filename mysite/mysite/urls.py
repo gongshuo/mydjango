@@ -19,12 +19,18 @@ from django.conf.urls import include
 from django.views.generic import TemplateView
 import django
 # from django.http import JsonResponse,HttpResponse
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', admin.site.urls ),
+    # path('', admin.site.urls ),
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls', namespace='blog')),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
     path('account/', include('account.urls', namespace='account')),
     path('article/', include('article.urls', namespace='article')),
+    path('image/',include('image.urls',namespace='image'))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# 这样就为每个上传的静态图片配置了URL 路径。

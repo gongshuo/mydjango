@@ -5,7 +5,7 @@ from .forms import LoginForm,RegistrationForm,UserForm,UserInfoForm,UserProfileF
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile,UserInfo
 from django.urls import  reverse
-
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 # Create your views here.
 
@@ -50,6 +50,7 @@ def register(request):
 
 
 @login_required()
+@xframe_options_sameorigin
 def myself(request):
     userprofile = UserProfile.objects.get(user=request.user) if hasattr(request.user, 'userprofile') else UserProfile.objects.create(user=request.user)
     userinfo = UserInfo.objects.get(user=request.user) if hasattr(request.user, 'userinfo') else UserInfo.objects.create(user=request.user)

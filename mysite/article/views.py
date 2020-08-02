@@ -6,11 +6,13 @@ from django.http import HttpResponse
 from .models import ArticleColumn, ArticlePost, ArticleTag
 from .forms import ArticleColumnForm, ArticlePostForm, ArticleTagForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+# 引入分页功能用到的三个类
 import json
 
 
 @login_required(login_url='/account/login/')
 @csrf_exempt
+# 在视图函数前面添加装饰器的方式也是解决提交表单中遇到的CSRF 问题的一种方式。
 def article_column(request):
     if request.method == "GET":
         columns = ArticleColumn.objects.filter(user=request.user)
@@ -21,6 +23,7 @@ def article_column(request):
         column_name = request.POST['column']
         columns = ArticleColumn.objects.filter(user_id=request.user.id, column=column_name)
         if columns:
+            # 如果已经存在columns
             return HttpResponse('2')
         else:
             ArticleColumn.objects.create(user=request.user, column=column_name)
@@ -29,6 +32,7 @@ def article_column(request):
 
 @login_required(login_url='/account/login')
 @require_POST
+# 使用这个装饰器的目的就是保证此视图函数只接收通过POST方式提交的数据。
 @csrf_exempt
 def rename_article_column(request):
     column_name = request.POST["column_name"]
@@ -90,15 +94,22 @@ def article_post(request):
 def article_list(request):
     articles_list = ArticlePost.objects.filter(author=request.user)
     paginator = Paginator(articles_list, 2)
+    # 创建分页的实例对象，并且规定每页最多2个
     page = request.GET.get('page')
+    # 语句②获得当前浏览器GET请求的参数page的值
     try:
         current_page = paginator.page(page)
+        # page()是Paginator对象的一个方法，其作用在于得到指定页面内容，其参数必须是大于或等于1的整数。
         articles = current_page.object_list
+        # object_list是Page对象的属性，能够得到该页所有的对象列表。类似的属性还有Page.number（返回页码）等
     except PageNotAnInteger:
+        # 请求的页码数值不是整数（PageNotAnInteger）
         current_page = paginator.page(1)
         articles = current_page.object_list
     except EmptyPage:
+        # 请求的页码数值为空或者在URL参数中没有page
         current_page = paginator.page(paginator.num_pages)
+        # paginator.num_pages 返回的是页数，num_pages是Paginator对象的一个属性。
         articles = current_page.object_list
     return render(request, "article/column/article_list.html", {"articles": articles, "page": current_page})
 

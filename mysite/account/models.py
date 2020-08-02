@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+# account_userinfo 表，其中记录了school、company、profession、address、aboutme字段内容。
+# account_userprofile 表，其中记录了phone、birth字段内容。
+# auth_user 表，这是Django默认的，其中记录了password、last_login、si_supperuser、first_name、last_name、email、username等字段内容。
 
 
 class UserProfile(models.Model):
@@ -20,7 +23,7 @@ class UserInfo(models.Model):
     profession = models.CharField(max_length=100, blank=True)
     address = models.CharField(max_length=100, blank=True)
     aboutme = models.TextField(blank=True)
-    photo = models.ImageField(blank=True)
+    photo = models.ImageField(blank=True)   # 图片
 
     def __str__(self):
         return "user:{}".format(self.user.username)

@@ -1,6 +1,7 @@
 {% extends "article/base.html" %}
 {% load thumbnail %}
-{% load staticfiles %}
+<!--在文件中显示缩略图的前面引入thumbnail（通常放在文件的顶部-->
+{% load static %}
 {% block title %}images{% endblock %}
 {% block content %} 
 <div>
@@ -17,9 +18,9 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ image.title }}</td>
-                <!--td>{{ image.image }}</td-->
+                <!--<td>{{ image.image }}</td>-->
                 {% thumbnail image.image "100x100" crop="center" as im %}
-                <td><img src="{{im.url}}" width="{{ im.width }}" height="{{ im.height }}"></img></td> 
+                <td><img src="{{im.url}}" width="{{ im.width }}" height="{{ im.height }}"></img></td>
                 {% endthumbnail %}
                 <td><a nane="delete" href="javascript:" onclick="del_image(this, {{ image.id }})"><span class="glyphicon glyphicon-trash" style="margin-left:20px;"></span></a></td>
             </tr>

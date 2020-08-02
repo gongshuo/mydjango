@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.middleware import clickjacking
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'account',
-    'article'
+    'article',
+    'image',
+    'sorl.thumbnail',
+    'course'
 ]
 
 MIDDLEWARE = [
@@ -130,17 +135,22 @@ EMAIL_PORT = 465
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "470690988@qq.com"
 
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/home/'  # 实现登录之后的跳转目标页
 
-LOGIN_URL = '/account/login/'
+LOGIN_URL = '/account/login/'  # 设定内置方法跳转到的登录URL
 
 # 在控制台打印重置密码url
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-APPEND_SLASH=False
+# APPEND_SLASH = False
 # 设置APPEND_SLASH=False就可以避免Django自动为url添加斜线
 # redis-server.exe redis.windows.conf  启动redis
 
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0
+
+# MEDIA_ROOT 声明了相对项目根目录的文件保存地址
+# 还是设置一个统一的目录较好，于是这里设置了一个名为media的目录，图片将被保存到./media/images里面。
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
