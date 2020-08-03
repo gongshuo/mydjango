@@ -3,6 +3,7 @@
 {% load static %}
 {% block title %}articles{% endblock %}
 {% block content %}
+
 <div class="row text-center vertical-middle-sm">
     <h1>阅读，丰富头脑，善化行为</h1> 
 </div>
@@ -30,11 +31,11 @@
     {% endif %}
 </div>
 <div>
-    <p>{{ user.username }}</p>
-    <p>共发表文章{% author_total_articles user %}篇</p>
+    <p>用户名：{{ user.username }}</p>
+    <p>共发表文章：{% author_total_articles user %}篇</p>
 {% if userinfo %}
-    <p>{{ userinfo.company }}</p>
-    <p>{{ userinfo.aboutme }}</p>
+    <p>公司：{{ userinfo.company }}</p>
+    <p>关于我：{{ userinfo.aboutme }}</p>
 {% else %} 
     <p>这个作者太懒了，什么也没有留下。</p> 
 {% endif %}

@@ -12,7 +12,8 @@ class Image(models.Model):
     description = models.TextField(blank=True)
     created = models.DateField(auto_now_add=True, db_index=True)
     # db_index=True意味着用数据库的此字段作为索引。
-    image = models.ImageField(upload_to='images/%Y/%m/%d')
+
+    image = models.ImageField(upload_to='images/%Y/%m/%d')  # image有长宽高
     # 其中参数upload_to 规定了所上传的图片文件的存储路径。
 
     def __str__(self):

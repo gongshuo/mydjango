@@ -35,7 +35,7 @@ class Lesson(models.Model):
     description = models.TextField(blank=True)
     attach = models.FileField(blank=True, upload_to=user_directory_path)
     created = models.DateTimeField(auto_now_add=True)
-    order = OrderField(blank=True, for_fields=['course'])
+    order = OrderField(blank=True, for_fields=['course'])  # 自定义的Field类
 
     class Meta:
         ordering = ['order']

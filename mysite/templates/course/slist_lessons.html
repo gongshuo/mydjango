@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load staticfiles %}
+{% load static %}
 {% block title %}Lessons List{% endblock %} 
 {% block content %}
 <div class="container">
@@ -51,7 +51,7 @@ function start_learn(course_id){
                 return cookieValue; 
             }
             if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) { 
-                hr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
             } 
         }
     }); 

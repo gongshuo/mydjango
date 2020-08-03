@@ -20,19 +20,21 @@ account:
   http://127.0.0.1:8000/account/edit-my-information/
   http://127.0.0.1:8000/account/my-image/
 article:
-  http://127.0.0.1:8000/article/article-column/
+  http://127.0.0.1:8000/article/article-column/  # 后台管理
   http://127.0.0.1:8000/article/rename-column/
   http://127.0.0.1:8000/article/del-column/
   http://127.0.0.1:8000/article/article-post/
   http://127.0.0.1:8000/article/article-list/
   http://127.0.0.1:8000/article/redit-article/5/
   http://127.0.0.1:8000/article/article-list/?page=1
+
   http://127.0.0.1:8000/article/list-article-titles/
   http://127.0.0.1:8000/article/listarticle-titles/
   http://127.0.0.1:8000/article/list-article-titles/
   http://127.0.0.1:8000/article/article-content/<int:id>/<slug:slug>/
   http://127.0.0.1:8000/article/list-article-titles/<username>/
   http://127.0.0.1:8000/article/like-article/
+
   http://127.0.0.1:8000/article/article-tag/
   http://127.0.0.1:8000/article/del-article-tag/
 image:
@@ -47,10 +49,12 @@ course:
   http://127.0.0.1:8000/course/create-lesson/
   http://127.0.0.1:8000/course/create-course/
   http://127.0.0.1:8000/course/delete-course/<int:pk>/
+
   http://127.0.0.1:8000/course/list-lessons/<int:course_id>/
   http://127.0.0.1:8000/course/detail-lesson/1/
   http://127.0.0.1:8000/course/course-list/
   http://127.0.0.1:8000/course/course-list/
+
   http://127.0.0.1:8000/course/lessons-list/<int:course_id>/
 安装包:
   pip install django
@@ -59,3 +63,4 @@ course:
   pip install redis
   pip install sorl-thumbnail
   pip install django-braces
+  pip install Markdown

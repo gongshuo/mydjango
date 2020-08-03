@@ -13,6 +13,7 @@
             <a href="{% url 'article:author_articles' article.author.username %}">{{ article.author.username }}</a>
             <span style="margin-left:20px" class="glyphicon glyphicon-thumbs-up">
                 {{ total_likes }} like {{ total_likes | pluralize }}
+                <!--如果数字大于十个，则为s-->
             </span>
             <span style="margin-left:20px">
                 {{ total_views }} view {{ total_views | pluralize}}
@@ -29,6 +30,7 @@
 {{ article.body | markdown }}
     </div>
     <div>
+        <!--点赞和踩的按钮-->
         <p class="text-center">
             <a onclick="like_article({{article.id}}, 'like')" href="#">
                 <span class="glyphicon glyphicon-thumbs-up">like</span>
@@ -48,7 +50,7 @@
     </div>
     <hr>
     <div>
-        <h3><span class="glyphicon glyphicon-bullhorn"></span>本文有{{ comments.count }}评论</h3>
+        <h3><span class="glyphicon glyphicon-bullhorn"></span>本文有{{ article.comments.count }}评论</h3>
         {% for comment in article.comments.all %}
         <div>
             <p><strong>{{ comment.commentator }}</strong>说:</p>

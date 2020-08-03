@@ -61,15 +61,15 @@ class ArticlePost(models.Model):
         # 通过ArticlePost.get_absolute_url使每个文章都有链接
 
     def get_url_path(self):
-        """给每篇文章添加"""
+        """给每篇文章添加路径"""
         return reverse("article:article_content", args=[self.id, self.slug])
 
 
 class Comment(models.Model):
     article = models.ForeignKey(ArticlePost, on_delete=models.CASCADE, related_name="comments")
-    commentator = models.CharField(max_length=90)
-    body = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
+    commentator = models.CharField(max_length=90)  # 评论人
+    body = models.TextField()  # 评论内容
+    created = models.DateTimeField(auto_now_add=True)  # 时间
 
     class Meta:
         ordering = ('-created',)

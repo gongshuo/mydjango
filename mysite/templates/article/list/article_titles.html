@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% load article_tags %}
+<!--导入自定义标签-->
 {% block title %} articles {% endblock %}
 {% block content %}
 <div class="row text-center vertical-middle-sm">
     <h1>阅读，丰富头脑，善化行为</h1>
-    <p>这里已经有{% total_articles %}篇文章供你阅读</p> 
+    <p>这里已经有{% total_articles %}篇文章供你阅读</p>
+    <!--自定义标签-->
 </div>
 <div class="container">
     {% for article in articles %} 
@@ -16,6 +18,8 @@
         <p class="list-group-item-text">概要:{{article.body|slice:'70'| linebreaks}}</p> 
     </div>
     {% endfor %}
-{% include "paginator.html" %} 
+
+{% include "paginator.html" %}
+
 </div>
 {% endblock %}

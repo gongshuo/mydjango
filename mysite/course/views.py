@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.base import TemplateResponseMixin
 # TemplateResponseMixin类，它提供了一种模板渲染的机制，在子类中，可以指定模板文件和渲染数据。
+
 from django.views import View
 from .models import Course, Lesson
 from .forms import CreateCourseForm, CreateLessonForm
@@ -19,14 +20,20 @@ def testview(request):
     return HttpResponse('<h1>Hello,learn course together</h1>')
 
 
-class CourseListView(ListView):
-    model = Course
-    context_object_name = "courses"
-    template_name = 'course/course_list.html'
-
-
 class AboutView(TemplateView):
     template_name = "course/about.html"
+
+
+class CourseListView(ListView):
+    model = Course  # 没有使用Course.objects.all()，而是用语句④的方式非常简洁地表达了。
+    # queryset = Course.objects.filter(user=User.objects.filter(username='niulaoshi').first())        # 和get_queryset等效
+    context_object_name = "courses"  # 声明了传入模板中的变量名称
+    template_name = 'course/course_list.html'
+    #
+    #
+    # def get_queryset(self):
+    #     qs = super(CourseListView, self).get_queryset()             # 读取数据库并返回结果（QuerySet）
+    #     return qs.filter(user=User.objects.filter(username="root").first())    # ⑧
 
 
 class UserMixin:
@@ -36,7 +43,7 @@ class UserMixin:
 
 
 # class UserCourseMixin(UserMixin):
-#     model = Course
+# model = Course
 
 class UserCourseMixin(UserMixin, LoginRequiredMixin):
     model = Course
@@ -44,6 +51,7 @@ class UserCourseMixin(UserMixin, LoginRequiredMixin):
 
 
 class ManageCourseListView(UserCourseMixin, ListView):
+    """用于用户登录后，进入“后台管理”，对课程进行“增删改查”等操作。"""
     context_object_name = "courses"
     template_name = 'course/manage/manage_course_list.html'
 
@@ -62,6 +70,7 @@ class CreateCourseView(UserCourseMixin, CreateView):
             new_course.save()
             return redirect("course:manage_course")
             # 当表单内容被保存后，将页面转向指定位置。
+
         return self.render_to_response({"form": form})
         # 在表单数据检测不通过时，让用户重新填写，注意这里没有使用render()
 
@@ -71,15 +80,38 @@ class DeleteCourseView(UserCourseMixin, DeleteView):
     success_url = reverse_lazy("course:manage_course")
 
     def dispatch(self, *args, **kwargs):
+        # 重写了DeleteView类中的dispatch()方法 ，原本在DeleteView类中执行dispatch()方法后
         resp = super(DeleteCourseView, self).dispatch(*args, **kwargs)
         if self.request.is_ajax():
+            # 通过语句⑤进行判断，如果是Ajax方法提交过来的数据，就直接反馈HttpResponse对象给前端，
+            # 前端的JavaScript函数得到反馈结果，这样就完成了删除和页面的刷新。
             response_data = {"result": "ok"}
             return HttpResponse(json.dumps(response_data), content_type="application/json")
         else:
             return resp
 
 
+def rename_course_name(request):
+    if request.method == 'POST':
+        new_course_id = request.POST['course_id']
+        new_course_title = request.POST['new_title']
+        course = Course.objects.filter(title=new_course_title)
+        if course:
+            # 如果已经存在columns
+            return HttpResponse('2')
+        else:
+            course = Course.objects.filter(id=new_course_id).first()
+            course.title = new_course_title
+            course.save()
+            return HttpResponse("1")
+
+    else:
+        return HttpResponse('<h1>你使用的是get方法</h1>')
+
+
 class CreateLessonView(LoginRequiredMixin, View):
+    """创建课程"""
+    # 在View类中没有默认的get()和post()方法
     model = Lesson
     login_url = "/account/login/"
 
@@ -99,8 +131,10 @@ class CreateLessonView(LoginRequiredMixin, View):
 
 
 class ListLessonsView(LoginRequiredMixin, TemplateResponseMixin, View):
+    """课程列表"""
     login_url = "/account/login/"
     template_name = 'course/manage/list_lessons.html'
+    # template_name = 'course/slist_lessons.html'
 
     def get(self, request, course_id):
         course = get_object_or_404(Course, id=course_id)

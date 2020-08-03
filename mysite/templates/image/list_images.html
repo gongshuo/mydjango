@@ -2,7 +2,8 @@
 {% load thumbnail %}
 {% load static %}
 {% block title %}images{% endblock %}
-{% block content %} 
+{% block content %}
+
 <div>
     <button type="button" class="btn btn-primary btn-lg btn-block" onclick="add_image()"> 添加图片</button>
     <div style="margin-top:10px;"> 
@@ -19,6 +20,7 @@
                 <td>{{ image.title }}</td>
                 <!--td>{{ image.image }}</td-->
                 {% thumbnail image.image "100x100" crop="center" as im %}
+                <!--图片缩小-->
                 <td><img src="{{im.url}}" width="{{ im.width }}" height="{{ im.height }}"></img></td> 
                 {% endthumbnail %}
                 <td><a nane="delete" href="javascript:" onclick="del_image(this, {{ image.id }})"><span class="glyphicon glyphicon-trash" style="margin-left:20px;"></span></a></td>
